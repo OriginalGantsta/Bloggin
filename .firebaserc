@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bloggin-b1005": {
+      "hosting": {
+        "Bloggin": [
+          "bloggin-b1005"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bloggin-b1005"
+  }
+}

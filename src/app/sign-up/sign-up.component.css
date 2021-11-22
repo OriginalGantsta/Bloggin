@@ -1,0 +1,82 @@
+/* .signUpContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+} */
+
+/* h2 {
+  font-family: mochiy pop one;
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formInput {
+  width: 25%;
+  min-width: 18em;
+}
+
+.formInputLabel {
+  font-size: 1.5em;
+  margin-top: 1em;
+}
+
+.formInput.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.submitButton {
+  min-width: 8em;
+  margin-top: 2em;
+  align-self: center;
+}
+
+p {
+  color: red;
+  position: fixed;
+  font-size: 0.8em;
+} */
+
+input:focus ~ .floating,
+input.ng-valid ~ .floating {
+  font-size: 10px;
+  color: #719ece;
+  opacity: 1;
+  align-items: top;
+  transition: 300ms;
+}
+
+input:not(:focus) ~ .floating {
+  align-items: center;
+}
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #719ece;
+  box-shadow: 0 0 10px #719ece;
+}
+
+/* .floating-label {
+  pointer-events: none;
+  transition: 0.2s ease all;
+} */
+/*
+.input-container{
+  height: 50px;
+  position: relative
+} */
