@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserSignup } from '../models/userSignup.model';
@@ -8,11 +8,13 @@ import { UserSignup } from '../models/userSignup.model';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
-export class SignUpComponent implements OnInit {
+
+export class SignUpComponent implements OnInit, AfterViewInit {
   userSignup = new UserSignup(null, null, null, null);
   emailInUse: boolean = false;
   invalidPassword: boolean = false;
 
+@ViewChild('form') form: ElementRef;
 @ViewChild('emailInput') emailInput: ElementRef;
 @ViewChild('passwordInput') passwordInput: ElementRef;
 
@@ -33,10 +35,14 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  hasValue(){}
   constructor(private authService: AuthService, private el: ElementRef) {
   }
 
   ngOnInit(): void {
+  }
+  ngAfterViewInit(){
 
+console.log(this.form)
   }
 }

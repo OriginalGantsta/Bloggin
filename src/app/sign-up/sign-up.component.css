@@ -20,8 +20,7 @@
 }
 
 .formInput {
-  width: 25%;
-  min-width: 18em;
+
 }
 
 .formInputLabel {
@@ -29,9 +28,7 @@
   margin-top: 1em;
 }
 
-.formInput.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
+
 
 .submitButton {
   min-width: 8em;
@@ -45,8 +42,21 @@ p {
   font-size: 0.8em;
 } */
 
+.formInput.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.inputContainer{
+  margin-top: 1em;
+  display: grid;
+}
+
+input:not(:focus, .hasValue).ng-invalid ~ .floating {
+  align-items: center;
+}
+
 input:focus ~ .floating,
-input.ng-valid ~ .floating {
+input.hasValue ~ .floating {
   font-size: 10px;
   color: #719ece;
   opacity: 1;
@@ -54,14 +64,18 @@ input.ng-valid ~ .floating {
   transition: 300ms;
 }
 
-input:not(:focus) ~ .floating {
-  align-items: center;
-}
-
 .inputText {
   font-size: 14px;
-  width: 200px;
-  height: 35px;
+  border-radius: 3px;
+  border-color: lightgray;
+  border-width: .5px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  width: 25%;
+  min-width: 18em;
 }
 
 input:focus,
@@ -71,10 +85,14 @@ textarea:focus {
   box-shadow: 0 0 10px #719ece;
 }
 
-/* .floating-label {
+.floating {
+  display: flex;
   pointer-events: none;
-  transition: 0.2s ease all;
-} */
+  grid-row-start: 1;
+  grid-column-start: 1;
+  padding-left: 10px;
+}
+
 /*
 .input-container{
   height: 50px;

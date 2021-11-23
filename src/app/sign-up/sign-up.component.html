@@ -1,18 +1,51 @@
 <!-- <div class="signUpContainer"> -->
-  <!-- <h2>Create your account</h2>
-  <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="signUpForm"> -->
+<!-- <h2>Create your account</h2> -->
 <h2>Hello World</h2>
-    <div style="display: grid; ">
+
+<form (ngSubmit)="onSubmit(form)" #form="ngForm" class="signUpForm">
 
 
-
-
-    <input type="text" name="email"  style="border-radius: 5px; padding-top: 15px;  grid-row-start: 1; grid-column-start: 1; " ngModel required="email" class="inputText" autocomplete="email"/>
-   <div class="floating" style="display: flex; pointer-events: none; grid-row-start: 1; grid-column-start: 1; padding-left: 10px">
-    <div style="pointer-events: none; text-align: center;" >Email</div>
+  <div class="inputContainer">
+    <input type="text" name="firstName" #firstNameInput [ngClass]="firstNameInput.value != '' ? 'hasValue' : ''" ngModel
+      required class="inputText" autocomplete="given-name" />
+    <div class="floating">
+      <div style="text-align: center;">First Name</div>
     </div>
+  </div>
 
-</div>
+  <div class="inputContainer">
+    <input type="text" name="lastName" #lastNameInput [ngClass]="lastNameInput.value != '' ? 'hasValue' : ''" ngModel
+      required class="inputText" autocomplete="family-name" />
+    <div class="floating">
+      <div>Last Name</div>
+    </div>
+  </div>
+
+  <div class="inputContainer">
+    <input type="text" name="email" #emailInput [ngClass]="emailInput.value != '' ? 'hasValue' : ''" ngModel required
+      email class="inputText" autocomplete="email" />
+    <div class="floating" id="emailLabel">
+      <div>Email</div>
+    </div>
+  </div>
+
+  <div class="inputContainer">
+    <input type="text" name="password" #password [ngClass]="password.value != '' ? 'hasValue' : ''" ngModel required
+      class="inputText" autocomplete="new-password" />
+    <div class="floating">
+      <div>Password</div>
+    </div>
+  </div>
+
+  <div class="inputContainer">
+    <input type="text" name="password" #passwordConfirmation [ngClass]="passwordConfirmation.value != '' ? 'hasValue' : ''" ngModel required
+      class="inputText" autocomplete="new-password" />
+    <div class="floating">
+      <div>Confirm Password</div>
+    </div>
+  </div>
+</form>
+
 <!--
     <input #emailInput type="email" name="email" ngModel required email class="formInput" autocomplete="email" placeholder="Email"
       style="overflow: visible;" [ngClass]="emailInUse ? 'ng-invalid' : ''" />
@@ -30,5 +63,5 @@
     <button type="submit" class="btn btn-primary submitButton" [disabled]="!form.valid">
       Submit
     </button> -->
-  <!-- </form> -->
+<!-- </form> -->
 <!-- </div> -->
