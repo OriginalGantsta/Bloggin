@@ -42,32 +42,40 @@ p {
   font-size: 0.8em;
 } */
 
+textarea {
+  resize: none;
+}
+
 .formInput.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-.inputContainer{
+.inputContainer {
   margin-bottom: 1.5em;
   display: grid;
   height: 3em;
 }
 
-input:focus ~ .floating {
-color: #719ece;}
+#mainText {
+  height: 20em;
+}
 
 input:focus ~ .floating,
-input.hasValue ~ .floating {
+input.hasValue ~ .floating,
+textarea:focus ~ .floating,
+textarea.hasValue ~ .floating,
+.characterCounter {
   font-size: 10px;
   opacity: 1;
-  padding-top: 5px;
+  color: #719ece;
 }
 
 .inputText {
   font-size: 14px;
   border-radius: 3px;
   border-color: lightgray;
-  border-width: .1px;
-  padding-top: 15px;
+  border-width: 0.1px;
+  padding-top: 18px;
   border-style: solid;
   padding-left: 10px;
   padding-right: 10px;
@@ -82,6 +90,13 @@ textarea:focus {
   box-shadow: 0 0 3px #719ece;
 }
 
+.characterCounter {
+  align-self: flex-start;
+  justify-self: right;
+  padding-top: 5px !important;
+  margin-left: auto;
+}
+
 .signUpForm {
   width: 85%;
   display: flex;
@@ -90,24 +105,30 @@ textarea:focus {
 }
 
 .floating {
-  color:rgb(122, 122, 122);
+  color: rgb(122, 122, 122);
   height: 3em;
   display: flex;
+  flex-direction: row;
   pointer-events: none;
   grid-row-start: 1;
   grid-column-start: 1;
-  padding-left: 10px;
   transition: 150ms all ease;
-  padding-top: 10px;
-  padding-bottom: 9px;
-
+  padding: 5px;
+  padding-left: 10px;
+  align-items: center;
 }
-.closeButton:focus{
+
+.inputText:not(:focus) ~ .floating > .characterCounter {
+  visibility: hidden;
+}
+
+.closeButton:focus {
   outline: 2px solid rgb(100, 100, 100);
 }
 
-.closeButton:hover, .closeButton:focus {
-background-color: lightgray !important;
+.closeButton:hover,
+.closeButton:focus {
+  background-color: lightgray !important;
 }
 
 /*

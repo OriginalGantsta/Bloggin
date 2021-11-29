@@ -1,0 +1,47 @@
+<form style="margin: auto; margin-bottom: 69.1755; margin-top: 72.351;" (ngSubmit)="onSubmit(form)" #form="ngForm"
+  class="signUpForm">
+
+  <div class="inputContainer">
+    <input type="text" name="title" #titleInput [ngClass]="titleInput.value != '' ? 'hasValue' : ''" ngModel required
+      class="inputText" autocomplete="off" />
+    <div class="floating">
+      <div>Title</div>
+    </div>
+  </div>
+
+  <div class="inputContainer">
+    <input type="text" name="blurb" #blurbInput [ngClass]="blurbInput.value != '' ? 'hasValue' : ''" ngModel required
+      class="inputText" autocomplete="off" (input)="updateBlurbCount(blurbInput.value.length)" maxlength="200"/>
+    <div class="floating">
+      <div>Write a short blurb about your post</div>
+      <div  class="characterCounter">
+        {{blurbCharacterCount}}/200</div>
+    </div>
+  </div>
+
+  <div class="inputContainer" id="mainText">
+    <textarea type="text" id="postInput" name="postInput" #postInput [ngClass]="postInput.value != '' ? 'hasValue' : ''"
+      ngModel required class="inputText" autocomplete="off" maxlength="maxCharacterLength"
+      (input)="updatePostCount(postInput.value.length)"></textarea>
+    <div class="floating">
+      <div>Text</div>
+      <div  class="characterCounter">
+        {{postCharacterCount}}/{{maxCharacterLength}}</div>
+    </div>
+  </div>
+
+  <div class="inputContainer">
+    <input type="text" name="url" #urlInput [ngClass]="urlInput.value != '' ? 'hasValue' : ''" ngModel
+      class="inputText" autocomplete="off" max-length="200" />
+    <div class="floating">
+      <div>Link to image (optional)</div>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+ <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: lime;">Cancel</button>
+
+  <button type="submit" [ngStyle]="{'background-color': form.valid ? 'gray': 'rgb(170, 170, 170)'} "
+    [disabled]="!form.valid"
+    style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em;"> Submit </button>
+ </div>
+  </form>

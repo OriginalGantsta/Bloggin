@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { DatabaseService } from '../database.service';
 import { UserSignup } from '../models/userSignup.model';
 
 @Component({
@@ -9,20 +9,27 @@ import { UserSignup } from '../models/userSignup.model';
   styleUrls: ['./sign-up.component.css'],
 })
 
-export class SignUpComponent implements OnInit, AfterViewInit {
+export class SignUpComponent implements OnInit, AfterViewChecked {
   userSignup = new UserSignup(null, null, null, null);
   emailInUse: boolean = false;
   invalidPassword: boolean = false;
+ @Output() close= new EventEmitter<void>();
 
-@ViewChild('form') form: ElementRef;
+@ViewChild('inputContainer') inputContainer: ElementRef;
 @ViewChild('emailInput') emailInput: ElementRef;
 @ViewChild('passwordInput') passwordInput: ElementRef;
+
+onClose(){
+  this.close.emit();
+}
+
+
 
   async onSubmit(form: NgForm) {
     this.userSignup.userForm = form;
     this.emailInUse = false;
     this.invalidPassword = false;
-    await this.authService.signUp(this.userSignup).catch((error) => {
+    await this.databaseService.signUp(this.userSignup).then(()=>this.close.emit()).catch((error) => {
       if (error.code === 'auth/email-already-in-use') {
         this.emailInUse = true;
         this.emailInput.nativeElement.focus();
@@ -34,15 +41,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  hasValue(){}
-  constructor(private authService: AuthService, private el: ElementRef) {
+  constructor(private databaseService: DatabaseService, private el: ElementRef) {
   }
+
 
   ngOnInit(): void {
   }
-  ngAfterViewInit(){
-
-console.log(this.form)
-  }
-}
+  ngAfterViewChecked(){}}
