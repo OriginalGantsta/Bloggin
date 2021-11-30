@@ -21,7 +21,7 @@ export class DatabaseService {
     private angularFireAuth: AngularFireAuth,
     private database: AngularFireDatabase,
     private authService: AuthService
-  ) {}
+  ) { }
 
   async writeUserData(userSignup: UserSignup) {
     await this.angularFireAuth.user.pipe(take(1)).subscribe((authUser) => {
@@ -38,22 +38,65 @@ export class DatabaseService {
   }
 
   saveBlogPost(blog: blog) {
-    const itemsRef = this.database.list('posts/' + this.getToday());
-    itemsRef
-      .push({ ...blog, uid: this.authService.user.value.uid})
-      .then((response: any) => console.log(response._delegate.key));
+    var userID = this.authService.user.value.uid;
+    var blogRef = this.database.list('posts')
+    blogRef
+      .push({ ...blog, uid: userID })
+      .then((response: any) => {
+        console.log(response._delegate.key);
+        this.database.object('users/' + userID + '/userPosts/' + response._delegate.key).set(true);
+        this.database.object('date/' + this.getToday() + "/" + response._delegate.key).set(true);
+        this.database.object('likes/' + response._delegate.key + "/" + userID).set(true)
+      });
+
   }
 
-getToday(){
-  return new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()).getTime();
-}
+  getUserPosts(userID) {
+    this.database
+      .object('users/' + userID + '/userPosts')
+      .valueChanges()
+      .pipe(take(1))
+      .subscribe({
+        next:
+          ((data: object) => {
+            var userPosts: blog[] = [];
+            for (let key in data) {
+              userPosts.push(data[key]);
+            }
+            return userPosts
+          })
+        , error: (
+          (error: any) => { })
+      })
+  }
 
-signUp(userSignup: UserSignup){
-  return this.authService.createUser(userSignup)
-.then(() => {
-  this.writeUserData(userSignup);
-  // this.router.navigate(['/home']);
-});}
+  getMostPopularPosts() {
+    var popularPosts= [];
+    this.database.object('likes').valueChanges().subscribe({
+      next: (object: Object) => {
+        console.log(object);
+        for (var key in object) {
+          popularPosts.push({object[key]:Object.keys(object[key]).length})
+          console.log(key)
+            console.log(Object.keys(object[key]).length)
+        }
+        popularPosts.sort((a,b)=> a[1] - b[1]);
+        console.log(popularPosts)
+      }
+    })
+  }
+
+  getToday() {
+    return new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()).getTime();
+  }
+
+  signUp(userSignup: UserSignup) {
+    return this.authService.createUser(userSignup)
+      .then(() => {
+        this.writeUserData(userSignup);
+        // this.router.navigate(['/home']);
+      });
+  }
 
 
 }

@@ -1,5 +1,6 @@
 import { Component, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DatabaseService } from '../database.service';
 import { PlaceholderDirective } from '../helpers/placeholder.directive';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 @ViewChild(PlaceholderDirective) userAuthPlaceholder: PlaceholderDirective;
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
   }
@@ -40,6 +41,10 @@ onSignIn(){
     this.closeSub.unsubscribe
     hostViewContainerRef.clear();
   })
+}
+
+test(){
+  this.databaseService.getMostPopularPosts()
 }
 
 ngOnDestroy(){

@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
 import { blog } from '../models/blog.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-blog-form',
@@ -13,6 +15,8 @@ export class BlogFormComponent implements OnInit {
 maxCharacterLength: number = 1000;
 postCharacterCount: number = 0;
 blurbCharacterCount: number = 0;
+user: User;
+userSubscription: Subscription;
 
 updatePostCount(inputlength: number){
   this.postCharacterCount = inputlength;
@@ -25,7 +29,7 @@ updateBlurbCount(inputlength: number){
   onSubmit(form: NgForm){
     var blog:blog= {
       title: form.value.title,
-      author: this.authService.user.value.firstName + ' ' + this.authService.user.value.lastName,
+      author: this.user.firstName + ' ' + this.user.lastName,
       date: Date.now(),
       blurb: form.value.blurb,
       image: form.value.url,
@@ -46,6 +50,7 @@ onCancel(){
   constructor(private databaseService: DatabaseService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.userSubscription = this.authService.user.subscribe((user)=>{this.user=user})
   }
 
 }
