@@ -1,6 +1,10 @@
-<ng-template appPlaceholder></ng-template>
-<div style="border: 1px solid black; position: sticky; top: 0px; z-index: 1; background-color: white;">
-<button (click)="onSignUp()">Sign Up</button>
-<button (click)="onSignIn()">Sign In</button>
-<button (click)="test()">Testing</button>
+
+  <ng-template appPlaceholder></ng-template>
+<div style="position: sticky; display: flex; padding-left: 5px; padding-left: 5px; justify-content: space-between; align-items: center; border-bottom: .5px solid #dddddd ;top: 0px; z-index: 100; background-color: white; height: 70px;">
+<div style="display: flex; gap: 1em; margin-left: 1em;">
+  <a style="color: #9b9b9b; font-weight: 600; cursor: pointer;" (click)="onSignUp()">Sign Up</a>
+<a style="color: #9b9b9b; font-weight: 600; cursor: pointer;" (click)="onSignIn()">Sign In</a>
+</div>
+<button class="btn btn-primary" (click)="test()">Testing</button>
+<div>hello</div>
 </div>

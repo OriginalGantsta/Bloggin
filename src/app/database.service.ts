@@ -73,12 +73,13 @@ export class DatabaseService {
   getMostPopularPosts() {
     var popularPosts= [];
     this.database.object('likes').valueChanges().subscribe({
-      next: (object: Object) => {
-        console.log(object);
-        for (var key in object) {
-          popularPosts.push({object[key]:Object.keys(object[key]).length})
+      next: (response: Object) => {
+        console.log(response);
+        for (var key in response) {
+          var popularPost: string = response[key];
+          popularPosts.push({popularPost : Object.keys(response[key]).length})
           console.log(key)
-            console.log(Object.keys(object[key]).length)
+            console.log(Object.keys(response[key]).length)
         }
         popularPosts.sort((a,b)=> a[1] - b[1]);
         console.log(popularPosts)

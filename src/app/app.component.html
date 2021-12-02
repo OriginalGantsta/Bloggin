@@ -1,4 +1,24 @@
-<div style="height: 100vh; width: 100vw; background-color: lime;"></div>
-<app-header ></app-header>
+<div style="overflow-x: hidden;">
+  <div style="height:100vh; width:100vw; overflow:hidden;">
+    <div style="min-width:max-content; min-height:max-content; display: grid;">
+      <div
+        style="grid-row: 1;grid-column: 1; min-width: 100vw; min-height: 100vh;  background-color: rgba(0,0,0,.3); z-index: 3;">
+      </div>
+      <img src="assets/img/bearTitlecard.jpg" alt="Bear Title Card"
+        style="grid-row: 1;grid-column: 1; min-width: 100vw; min-height: 100vh;  z-index: 2;">
+
+      <div
+        style="grid-column: 1; grid-row: 1; justify-self: flex-end; z-index: 50; padding-bottom: 12%; width: 35.5%; display: flex; align-items:flex-end;">
+        <div style=" color: white; padding-left: 10%; padding-right: 10%; ">
+          <h1 style=" font-size: 120px; margin-bottom: 1em;">Boiled Bear Blog</h1>
+          <h1 style="font-size: 20px; padding-bottom: 1em;">Sharing stories, photos, and recipies in the culinary art of boiled bear</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-header></app-header>
 <app-blog-form></app-blog-form>
-<div style="height: 200vh; width: 100vw; background-color: blue;"></div>
+<div style="overflow-x: hidden">
+  <div style="height: 200vh; width: 100vw; background-color: blue;"></div>
+</div>
