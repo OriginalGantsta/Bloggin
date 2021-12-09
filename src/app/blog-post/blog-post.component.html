@@ -1,11 +1,12 @@
 <div>
-  Header
+<div class="div blogContainer" [ngStyle]="{'position': absolute ? 'absolute' : 'static'}" >
+  <div class="header">
+    <div class="title">{{blogExample.title}}</div>
+    <div class="blurb">{{blogExample.blurb}}</div>
+    <hr>
+    <img [src]=blogExample.image alt="Ahhh Bear" title="Ahhh Bear">
+    <label for="image">{{blogExample.imageDescription}}</label>
+  </div>
+  <div class="main">{{blogExample.bodyText}}</div>
 </div>
-<div class="container">
-  <div>
-    Main
-  </div>
-  <div>
-    sidebar
-  </div>
 </div>

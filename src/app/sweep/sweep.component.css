@@ -1,0 +1,46 @@
+
+
+
+
+/* .collapsible:not(.collapse){
+  height: 100vh;
+} */
+.sweepContainer{
+  width: 100vw; height: 100vh;overflow: hidden;  position: absolute; top: 0; left: 0;
+}
+
+.collapsible {
+  position: relative;
+}
+
+.brown { width: 100vw; height: 100vh; background-color:#73401C;  z-index: 10000;}
+.black { width: 100vw; height: 100vh; background-color: #282421;  z-index: 10000}
+.clear {width: 100vw; height: 100vh; background-color: transparent;  z-index: 10000}
+
+.ease-in {
+transition: height 450ms ease-in;
+}
+
+.ease-out {
+  transition: height 1000ms ease-out;
+}
+
+.linear {
+  transition: height 750ms linear;
+}
+
+.collapser.brown{
+  height: 0;
+  transition: height 1000ms ease-in;
+}
+
+.collapser.black{
+  transition: height 450ms ease-out;
+  height: 0;
+}
+
+.collapser.clear{
+  transition: height 750ms linear;
+  height: 0;
+}
+

@@ -19,15 +19,15 @@ export class AuthService {
     private angularFireAuth: AngularFireAuth,
     private database: AngularFireDatabase
   ) {
-    this.angularFireAuth.onAuthStateChanged((authUser) => {
-      if (authUser != null) {
-        this.loggedIn.next(true);
-        this.onLoggedIn(authUser);
-      } else {
-        this.loggedIn.next(false);
-        this.onLoggedOut();
-      }
-    });
+    // this.angularFireAuth.onAuthStateChanged((authUser) => {
+    //   if (authUser != null) {
+    //     this.loggedIn.next(true);
+    //     this.onLoggedIn(authUser);
+    //   } else {
+    //     this.loggedIn.next(false);
+    //     this.onLoggedOut();
+    //   }
+    // });
   }
 
   onLoggedIn(authUser) {

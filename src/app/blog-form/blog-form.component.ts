@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
-import { blog } from '../models/blog.model';
+import { Blog } from '../models/blog.model';
 import { User } from '../models/user.model';
 
 @Component({
@@ -27,7 +27,7 @@ updateBlurbCount(inputlength: number){
 
 
   onSubmit(form: NgForm){
-    var blog:blog= {
+    var blog:Blog= {
       title: form.value.title,
       author: this.user.firstName + ' ' + this.user.lastName,
       date: Date.now(),
@@ -38,7 +38,7 @@ updateBlurbCount(inputlength: number){
     this.saveBlog(blog)
   }
 
-  saveBlog(blog: blog){
+  saveBlog(blog: Blog){
     this.databaseService.saveBlogPost(blog)
   }
 

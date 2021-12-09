@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from './models/user.model';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { blog } from './models/blog.model';
+import { Blog } from './models/blog.model';
 import { Reference } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 
@@ -37,7 +37,7 @@ export class DatabaseService {
     });
   }
 
-  saveBlogPost(blog: blog) {
+  saveBlogPost(blog: Blog) {
     var userID = this.authService.user.value.uid;
     var blogRef = this.database.list('posts')
     blogRef
@@ -59,7 +59,7 @@ export class DatabaseService {
       .subscribe({
         next:
           ((data: object) => {
-            var userPosts: blog[] = [];
+            var userPosts: Blog[] = [];
             for (let key in data) {
               userPosts.push(data[key]);
             }

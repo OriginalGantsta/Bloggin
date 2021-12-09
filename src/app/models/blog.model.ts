@@ -1,9 +1,10 @@
 import { Url } from "url";
 
-export class blog {
+export class Blog {
   title: string;
   author: string;
-  image?: Url;
+  image?: string;
+  imageDescription?: string;
   date: number;
   blurb: string;
   bodyText: string;

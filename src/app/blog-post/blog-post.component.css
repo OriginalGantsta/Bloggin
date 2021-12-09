@@ -1,0 +1,39 @@
+.blogContainer {
+  padding-left: 30%;
+  margin: 0;
+  padding-right: 30%;
+  /* margin-top: 5em; */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden; width: 100vw; height: 100vh;
+  position: static;
+  /* top: 0 */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.blurb {
+  font-size: 20px;
+  font-weight: lighter;
+  padding-top: 0.5em;
+}
+
+hr {
+  color: rgb(172, 172, 172);
+  margin-bottom: 1.5em;
+  margin-top: 1em;
+}
+
+.main {
+  margin-top: 1em;
+}

@@ -2,3 +2,10 @@ a {
   font-family: "Futura Medium", sans-serif;
   color: #9b9b9b;
 }
+
+.notAtTop {
+  border: 1px solid #e0e0e0;
+  margin: .5em;
+  background-color: rgb(255, 255, 255, .8);
+  transition: all 1s;
+}

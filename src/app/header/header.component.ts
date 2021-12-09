@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from '../database.service';
 import { PlaceholderDirective } from '../helpers/placeholder.directive';
@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private closeSub: Subscription;
 
 @ViewChild(PlaceholderDirective) userAuthPlaceholder: PlaceholderDirective;
+  windowScrolled: boolean;
 
   constructor(private databaseService: DatabaseService) { }
 
@@ -37,10 +38,10 @@ onSignIn(){
   hostViewContainerRef.clear();
 
   const componentRef = hostViewContainerRef.createComponent(SignInComponent);
-  this.closeSub = componentRef.instance.close.subscribe(()=>{
-    this.closeSub.unsubscribe
-    hostViewContainerRef.clear();
-  })
+  // this.closeSub = componentRef.instance.close.subscribe(()=>{
+  //   this.closeSub.unsubscribe
+  //   hostViewContainerRef.clear();
+  // })
 }
 
 test(){
@@ -49,6 +50,10 @@ test(){
 
 ngOnDestroy(){
   this.closeSub.unsubscribe
+}
+
+@HostListener('window:scroll') onScroll(){
+  this.windowScrolled = window.scrollY !=0;
 }
 
 }

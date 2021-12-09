@@ -1,0 +1,61 @@
+
+.carousel {
+  background: transparent;
+}
+
+.carousel-caption {
+  bottom: auto !important;
+top: 0;
+  height: 100%;
+  justify-content: center !important;
+  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  visibility: hidden;
+opacity: 0;
+
+transition:opacity 0.5s linear;
+}
+
+.caption-background{
+  background-color: rgba(175, 175, 175, 0.6);
+  z-index: 10;
+  width: 60%;
+  height: 40%;
+  padding: 2em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  overflow-wrap: break-word;
+
+}
+
+p {
+  margin: 0;
+}
+
+mdb-carousel-item:hover > .carousel-caption{
+  visibility: visible !important;
+  opacity: 1;
+}
+
+.carousel-cell {
+  width: 50%;
+  height: 200px;
+  margin-right: 10px;
+  background: #8C8;
+  border-radius: 5px;
+  counter-increment: gallery-cell;
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(gallery-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;
+}
+
