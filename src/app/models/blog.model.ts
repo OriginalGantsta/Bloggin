@@ -5,7 +5,7 @@ export class Blog {
   author: string;
   image?: string;
   imageDescription?: string;
-  date: number;
+  date: number | string;
   blurb: string;
   bodyText: string;
   uid?: string;

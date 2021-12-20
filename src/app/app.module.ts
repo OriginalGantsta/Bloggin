@@ -20,6 +20,19 @@ import { SweepComponent } from './sweep/sweep.component';
 import { HomeComponent } from './home/home.component';
 import { TestComponent } from './test/test.component';
 import { CarouselComponent } from './carousel/carousel.component';
+import { RouterModule, Routes } from '@angular/router';
+import { GalleryComponent } from './gallery/gallery.component';
+
+
+const appRoutes: Routes =[
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'submit', component: BlogFormComponent },
+  { path: 'blogs/:bID', component: BlogPostComponent},
+  { path: 'blogs/:bID/:title', component: BlogPostComponent },
+  { path: 'blogs/:bID/:title', component: BlogPostComponent, children: [
+    {path: '**', component: BlogPostComponent}
+  ]},
+]
 
 @NgModule({
   declarations: [
@@ -35,6 +48,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     HomeComponent,
     TestComponent,
     CarouselComponent,
+    GalleryComponent,
   ],
   imports: [
     MDBBootstrapModule.forRoot(),
@@ -46,6 +60,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent],

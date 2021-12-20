@@ -1,11 +1,11 @@
 
   <ng-template appPlaceholder></ng-template>
-<div [ngClass]="windowScrolled ? 'notAtTop' : '' "
- style="padding: 1em; position: fixed; display: flex; left: 5px; right: 5px; justify-content: space-between; align-items: center; top: 0px; z-index: 100;  height: 70px;">
+<div #headerContainer [ngClass]="windowScrolled ? 'notAtTop' : '' "
+ style="padding: 1em; position: sticky; display: flex; left: 5px; right: 5px; justify-content: space-between; align-items: center; top: 8px; z-index: 100;  height: 70px;">
 <div style="display: flex; gap: 1em;">
   <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignUp()">Sign Up</a>
 <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignIn()">Sign In</a>
 </div>
-<button class="btn btn-primary" (click)="test()">Testing</button>
+<img (click)="test()" src="assets/img/Logo.png" alt="Bear Title Card" style="height: 60px;">
 <div>hello</div>
 </div>

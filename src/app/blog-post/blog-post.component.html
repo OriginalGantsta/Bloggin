@@ -1,12 +1,19 @@
-<div>
-<div class="div blogContainer" [ngStyle]="{'position': absolute ? 'absolute' : 'static'}" >
-  <div class="header">
-    <div class="title">{{blogExample.title}}</div>
-    <div class="blurb">{{blogExample.blurb}}</div>
-    <hr>
-    <img [src]=blogExample.image alt="Ahhh Bear" title="Ahhh Bear">
-    <label for="image">{{blogExample.imageDescription}}</label>
+<app-header></app-header>
+<div class="blogOuterContainer" *ngIf="blog">
+  <div class="blogInnerContainer">
+    <!-- [ngStyle]="{'position': absolute ? 'absolute' : 'static'}" > -->
+    <div class="intro">
+      <div class="title">{{blog.title}}</div>
+      <div class="blurb">{{blog.blurb}}</div>
+      <hr>
+    </div>
+    <img [src]=blog.image alt="Ahhh Bear" title="Ahhh Bear">
+    <label for="image">{{blog.imageDescription}}</label>
+    <div class="mainContainer">
+      <div class="author">By {{blog.author}}</div>
+      <div class="date">{{blog.date}}</div>
+      <div class="main">{{blog.bodyText}}</div>
+    </div>
+
   </div>
-  <div class="main">{{blogExample.bodyText}}</div>
-</div>
 </div>

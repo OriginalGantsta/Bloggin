@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { UserSignup } from './models/userSignup.model';
 
 import firebase from 'firebase/compat/app';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { async, BehaviorSubject, Subscription } from 'rxjs';
 import { User } from './models/user.model';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Blog } from './models/blog.model';
@@ -15,13 +15,11 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class DatabaseService {
-
-
   constructor(
     private angularFireAuth: AngularFireAuth,
     private database: AngularFireDatabase,
     private authService: AuthService
-  ) { }
+  ) {}
 
   async writeUserData(userSignup: UserSignup) {
     await this.angularFireAuth.user.pipe(take(1)).subscribe((authUser) => {
@@ -39,65 +37,117 @@ export class DatabaseService {
 
   saveBlogPost(blog: Blog) {
     var userID = this.authService.user.value.uid;
-    var blogRef = this.database.list('posts')
-    blogRef
-      .push({ ...blog, uid: userID })
-      .then((response: any) => {
-        console.log(response._delegate.key);
-        this.database.object('users/' + userID + '/userPosts/' + response._delegate.key).set(true);
-        this.database.object('date/' + this.getToday() + "/" + response._delegate.key).set(true);
-        this.database.object('likes/' + response._delegate.key + "/" + userID).set(true)
-      });
-
+    var bID = this.database
+      .list('users/' + userID + '/userPosts')
+      .push(true).key;
+    this.database.list('blogs').update(bID, { ...blog, uid: userID, bid: bID });
   }
 
-  getUserPosts(userID) {
+  submitBlogEdit(bID: string, blog: Blog) {
+    this.database.list('blogs').update(bID, blog);
+  }
+
+  signUp(userSignup: UserSignup) {
+    return this.authService.createUser(userSignup).then(() => {
+      this.writeUserData(userSignup);
+      // this.router.navigate(['/home']);
+    });
+  }
+
+  getMostPopularBlogs(x: number) {
+    console.log('getting');
+    this.database
+      .list('blogs', (ref) => ref.orderByChild('likes').limitToLast(x))
+      .valueChanges()
+      .subscribe({
+        next: (response: Object) => {
+          console.log(response);
+        },
+      });
+  }
+
+  getBlogsFromDateRange(startDate: string, endDate?: string) {
+    var startOfDate = Date.parse(startDate);
+    var endOfDate;
+    if (endDate) {
+      endOfDate = Date.parse(endDate);
+    } else {
+      endOfDate = startDate + 1000 * 60 * 60 * 24;
+    }
+    this.database
+      .list('blogs', (ref) =>
+        ref.orderByChild('date').startAt(startOfDate).endAt(endOfDate)
+      )
+      .valueChanges()
+      .subscribe({
+        next: (response: Object) => {
+          console.log(response);
+        },
+      });
+  }
+
+  getRecentBlogs() {
+    return this.database
+      .list('blogs', (ref) => ref.orderByChild('date').limitToLast(10))
+      .valueChanges()
+      .pipe(tap(data => console.log(data)),
+        map((responseData) => {
+          responseData.map((data) => {
+            console.log(data['date']);
+            data['date'] = new Date(data['date']).toLocaleDateString(
+              undefined,
+              { year: 'numeric', month: 'short', day: 'numeric' }
+            );
+            return data;
+          });
+          return responseData;
+        })
+      );
+  }
+
+  getUserBlogs(userID) {
     this.database
       .object('users/' + userID + '/userPosts')
       .valueChanges()
       .pipe(take(1))
       .subscribe({
-        next:
-          ((data: object) => {
-            var userPosts: Blog[] = [];
-            for (let key in data) {
-              userPosts.push(data[key]);
-            }
-            return userPosts
-          })
-        , error: (
-          (error: any) => { })
-      })
-  }
-
-  getMostPopularPosts() {
-    var popularPosts= [];
-    this.database.object('likes').valueChanges().subscribe({
-      next: (response: Object) => {
-        console.log(response);
-        for (var key in response) {
-          var popularPost: string = response[key];
-          popularPosts.push({popularPost : Object.keys(response[key]).length})
-          console.log(key)
-            console.log(Object.keys(response[key]).length)
-        }
-        popularPosts.sort((a,b)=> a[1] - b[1]);
-        console.log(popularPosts)
-      }
-    })
-  }
-
-  getToday() {
-    return new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()).getTime();
-  }
-
-  signUp(userSignup: UserSignup) {
-    return this.authService.createUser(userSignup)
-      .then(() => {
-        this.writeUserData(userSignup);
-        // this.router.navigate(['/home']);
+        next: async (data: any) => {
+          await Promise.all(
+            Object.keys(data).map(async (bID) => {
+              return new Promise((resolve, reject) => {
+                this.database
+                  .object('blogs/' + bID)
+                  .valueChanges()
+                  .pipe(take(1))
+                  .subscribe({
+                    next: (data) => {
+                      resolve(data);
+                    },
+                  });
+              });
+            })
+          ).then((data) => console.log(data));
+        },
+        error: (error: any) => {},
       });
   }
 
-
+  getBlog(bID) {
+    return this.database
+      .object('blogs/' + bID)
+      .valueChanges()
+      .pipe(take(1))
+      .pipe(
+        map((responseData) => {
+          responseData['date'] = new Date(
+            responseData['date']
+          ).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          });
+          return responseData;
+        })
+      );
+  }
 }

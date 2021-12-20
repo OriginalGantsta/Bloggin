@@ -1,4 +1,4 @@
-<form style="margin: auto; margin-bottom: 69.1755; margin-top: 72.351;" (ngSubmit)="onSubmit(form)" #form="ngForm"
+<form (ngSubmit)="onSubmit(form)" #form="ngForm"
   class="signUpForm">
 
   <div class="inputContainer">
@@ -20,9 +20,9 @@
   </div>
 
   <div class="inputContainer" id="mainText">
-    <textarea type="text" id="postInput" name="postInput" #postInput [ngClass]="postInput.value != '' ? 'hasValue' : ''"
+    <textarea type="text" id="bodyText" name="bodyText" #bodyText [ngClass]="bodyText.value != '' ? 'hasValue' : ''"
       ngModel required class="inputText" autocomplete="off" maxlength="maxCharacterLength"
-      (input)="updatePostCount(postInput.value.length)"></textarea>
+      (input)="updatePostCount(bodyText.value.length)"></textarea>
     <div class="floating">
       <div>Text</div>
       <div  class="characterCounter">
@@ -37,6 +37,15 @@
       <div>Link to image (optional)</div>
     </div>
   </div>
+
+  <div class="inputContainer">
+    <input type="text" name="imgDesc" #imgDesc [ngClass]="imgDesc.value != '' ? 'hasValue' : ''" ngModel
+      class="inputText" autocomplete="off" max-length="200" />
+    <div class="floating">
+      <div>Description of image (optional)</div>
+    </div>
+  </div>
+
   <div style="display: flex; justify-content: space-between;">
  <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: lime;">Cancel</button>
 

@@ -3,9 +3,13 @@ a {
   color: #9b9b9b;
 }
 
+img:hover{
+cursor: pointer;
+}
+
 .notAtTop {
   border: 1px solid #e0e0e0;
   margin: .5em;
-  background-color: rgb(255, 255, 255, .8);
+  background-color: rgb(255, 255, 255, .9);
   transition: all 1s;
 }

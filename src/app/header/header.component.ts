@@ -1,4 +1,5 @@
 import { Component, ComponentRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from '../database.service';
 import { PlaceholderDirective } from '../helpers/placeholder.directive';
@@ -15,9 +16,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private closeSub: Subscription;
 
 @ViewChild(PlaceholderDirective) userAuthPlaceholder: PlaceholderDirective;
-  windowScrolled: boolean;
+@ViewChild('headerContainer') headerContainer;
 
-  constructor(private databaseService: DatabaseService) { }
+windowScrolled: boolean;
+
+  constructor(private databaseService: DatabaseService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -38,22 +41,29 @@ onSignIn(){
   hostViewContainerRef.clear();
 
   const componentRef = hostViewContainerRef.createComponent(SignInComponent);
-  // this.closeSub = componentRef.instance.close.subscribe(()=>{
-  //   this.closeSub.unsubscribe
-  //   hostViewContainerRef.clear();
-  // })
+  this.closeSub = componentRef.instance.close.subscribe(()=>{
+    this.closeSub.unsubscribe
+    hostViewContainerRef.clear();
+  })
 }
 
 test(){
-  this.databaseService.getMostPopularPosts()
+  console.log('navigating')
+  this.router.navigate(['/submit'],);
+  console.log(this.route.toString())
 }
 
 ngOnDestroy(){
-  this.closeSub.unsubscribe
+  if(this.closeSub){
+  this.closeSub.unsubscribe}
 }
 
 @HostListener('window:scroll') onScroll(){
-  this.windowScrolled = window.scrollY !=0;
+   console.log(this.headerContainer.nativeElement.getBoundingClientRect().top);
+  if (this.headerContainer.nativeElement.getBoundingClientRect().top === 8){
+  this.windowScrolled = window.scrollY !=0;}
+  else {this.windowScrolled = false}
 }
+
 
 }
