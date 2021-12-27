@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { DatabaseService } from './database.service';
 import { User } from './models/user.model';
 import { UserSignup } from './models/userSignup.model';
@@ -12,7 +12,7 @@ import { UserSignup } from './models/userSignup.model';
 })
 export class AuthService {
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(undefined);
-  user: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  user: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
   private userSubscription: Subscription;
 
   constructor(
@@ -23,6 +23,7 @@ export class AuthService {
       if (authUser != null) {
         this.loggedIn.next(true);
         this.onLoggedIn(authUser);
+        // console.log(authUser)
       } else {
         this.loggedIn.next(false);
         this.onLoggedOut();
@@ -54,7 +55,7 @@ export class AuthService {
             this.user.next(authUser);
           }
         },
-        error: (error: any) => this.userSubscription.unsubscribe,
+        error: (error: any) => {console.log(error) ;this.userSubscription.unsubscribe()},
       });
   }
 

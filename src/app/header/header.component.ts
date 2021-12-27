@@ -2,9 +2,11 @@ import { Component, ComponentRef, HostListener, OnDestroy, OnInit, ViewChild } f
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from '../database.service';
+import { AuthService } from '../auth.service';
 import { PlaceholderDirective } from '../helpers/placeholder.directive';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +20,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 @ViewChild(PlaceholderDirective) userAuthPlaceholder: PlaceholderDirective;
 @ViewChild('headerContainer') headerContainer;
 
+loggedIn: boolean;
 windowScrolled: boolean;
+user: User;
+loggedInSubscription: Subscription;
+userSubscription: Subscription;
 
-  constructor(private databaseService: DatabaseService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private databaseService: DatabaseService, private router: Router, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
+   this.loggedInSubscription= this.authService.loggedIn.subscribe((boolean) => this.loggedIn = boolean);
+   this.userSubscription= this.authService.user.subscribe((user) => this.user = user)
   }
 
 onSignUp(){
@@ -47,23 +55,33 @@ onSignIn(){
   })
 }
 
+onSignOut(){
+  this.authService.logout()
+}
+
 test(){
-  console.log('navigating')
-  this.router.navigate(['/submit'],);
-  console.log(this.route.toString())
+  // console.log(this.loggedIn, this.user, this.authService.user)
+  this.router.navigate(['/'],);
+  // console.log(this.route.toString())
 }
 
 ngOnDestroy(){
   if(this.closeSub){
-  this.closeSub.unsubscribe}
+  this.closeSub.unsubscribe()};
+  this.userSubscription.unsubscribe();
+  this.loggedInSubscription.unsubscribe();
 }
 
 @HostListener('window:scroll') onScroll(){
-   console.log(this.headerContainer.nativeElement.getBoundingClientRect().top);
-  if (this.headerContainer.nativeElement.getBoundingClientRect().top === 8){
-  this.windowScrolled = window.scrollY !=0;}
+  //  console.log(this.headerContainer.nativeElement.getBoundingClientRect().top);
+  //  console.log(window.scrollY);
+  if (this.headerContainer.nativeElement.getBoundingClientRect().top === 8 && window.scrollY !=0){
+  this.windowScrolled = true;}
   else {this.windowScrolled = false}
 }
 
+goToUserBlogs(){
+  this.router.navigate(['/list'], {queryParams: {user: this.user.uid}})
+}
 
 }

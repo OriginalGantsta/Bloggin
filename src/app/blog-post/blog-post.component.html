@@ -1,16 +1,18 @@
 <app-header></app-header>
 <div class="blogOuterContainer" *ngIf="blog">
   <div class="blogInnerContainer">
+    <a style="position: absolute; top:0; right: 0" *ngIf="editable" (click)="editBlog()">Edit</a>
     <!-- [ngStyle]="{'position': absolute ? 'absolute' : 'static'}" > -->
-    <div class="intro">
-      <div class="title">{{blog.title}}</div>
-      <div class="blurb">{{blog.blurb}}</div>
-      <hr>
-    </div>
-    <img [src]=blog.image alt="Ahhh Bear" title="Ahhh Bear">
-    <label for="image">{{blog.imageDescription}}</label>
+      <div class="intro">
+        <div class="title">{{blog.title}}</div>
+        <div class="blurb">{{blog.blurb}}</div>
+        <p style="font-size: 3em; white-space: 0; text-align: right; cursor: pointer;" [ngStyle]="{'color': blogLiked ? 'red' : 'black'}" (click)="likeBlog()">&hearts;{{blog.likesCount}}</p>
+        <hr>
+      </div>
+      <img [src]=blog.image alt="Ahhh Bear" title="Ahhh Bear" style="object-fit: contain;">
+      <label for="image">{{blog.imageDescription}}</label>
     <div class="mainContainer">
-      <div class="author">By {{blog.author}}</div>
+      <div class="author" (click)="getUsersBlogs()">By {{blog.author}}</div>
       <div class="date">{{blog.date}}</div>
       <div class="main">{{blog.bodyText}}</div>
     </div>

@@ -9,4 +9,7 @@ export class Blog {
   blurb: string;
   bodyText: string;
   uid?: string;
+  bid?: string;
+  likes?: any;
+  likesCount?: number;
 }

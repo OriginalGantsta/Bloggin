@@ -1,13 +1,22 @@
+<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 5em; margin-top: 5em;">
+  <h5 (click)="onCreateBlog()" *ngIf="loggedIn"> Create New Blog </h5>
+</div>
 <div *ngFor="let blog of blogs, index as i">
-  <div [ngStyle]="i%2>0?{'flex-direction': 'row', 'text-align': 'right'}:{'flex-direction': 'row-reverse', 'text-align': 'left'}"
+  <div
+    [ngStyle]="i%2>0?{'flex-direction': 'row', 'text-align': 'right'}:{'flex-direction': 'row-reverse', 'text-align': 'left'}"
     style="width: 66%; min-width: 750px; height: 50vw; max-height: 75vh; display: flex; justify-content: space-between; align-items: center; margin-left: auto; margin-right: auto; margin-top: 5em; margin-bottom: 5em;">
     <div style="width: 50%; display: flex; flex-direction: column; padding-left: 2em; padding-right: 2em ">
-      <div style="font-size: .75em;">{{blog.date}}</div>
+      <div style="font-size: .75em;">{{getDate(blog.date)}}</div>
       <div style=" margin-top: .5em; margin-bottom: .5em; font-size: 2em; font-weight: bold;">{{blog.title}}</div>
       <div>{{blog.blurb}}</div>
+      <a style="color:#c46d45; cursor: pointer;" [routerLink]="['/blogs/', blog.bid]">Read More</a>
     </div>
-    <div style="width: 48%; height: 100%; padding-left: 2em; padding-right: 2em; overflow: hidden; display: flex; justify-content: center;">
-      <img [src]=blog.image style= "max-height: 100%; " />
+    <div
+      style="width: 48%; height: 100%; padding-left: 2em; padding-right: 2em; overflow: hidden; display: flex; justify-content: center;">
+      <img [src]=blog.image style="max-height: 100%; " />
     </div>
   </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 5em;">
+<div style="cursor: pointer;" (click)="loadMoreBlogs()" *ngIf="blogsToLoad">Load More <span style="font-size: small;">&#9660;</span></div>
 </div>

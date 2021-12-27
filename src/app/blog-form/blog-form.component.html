@@ -34,7 +34,7 @@
     <input type="text" name="url" #urlInput [ngClass]="urlInput.value != '' ? 'hasValue' : ''" ngModel
       class="inputText" autocomplete="off" max-length="200" />
     <div class="floating">
-      <div>Link to image (optional)</div>
+      <div>Link to image</div>
     </div>
   </div>
 
@@ -42,14 +42,14 @@
     <input type="text" name="imgDesc" #imgDesc [ngClass]="imgDesc.value != '' ? 'hasValue' : ''" ngModel
       class="inputText" autocomplete="off" max-length="200" />
     <div class="floating">
-      <div>Description of image (optional)</div>
+      <div>Description of image</div>
     </div>
   </div>
 
   <div style="display: flex; justify-content: space-between;">
- <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: lime;">Cancel</button>
+ <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: red;">Cancel</button>
 
-  <button type="submit" [ngStyle]="{'background-color': form.valid ? 'gray': 'rgb(170, 170, 170)'} "
+  <button type="submit" [ngStyle]="{'background-color': form.valid ? 'lime': 'rgb(170, 170, 170)'} "
     [disabled]="!form.valid"
     style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em;"> Submit </button>
  </div>

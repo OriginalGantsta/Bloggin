@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,17 +22,20 @@ import { TestComponent } from './test/test.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
+import { ListComponent } from './list/list.component';
 
-
-const appRoutes: Routes =[
+const appRoutes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'submit', component: BlogFormComponent },
-  { path: 'blogs/:bID', component: BlogPostComponent},
+  { path: 'blogs/:bID', component: BlogPostComponent },
   { path: 'blogs/:bID/:title', component: BlogPostComponent },
-  { path: 'blogs/:bID/:title', component: BlogPostComponent, children: [
-    {path: '**', component: BlogPostComponent}
-  ]},
-]
+  {
+    path: 'blogs/:bID/:title',
+    component: BlogPostComponent,
+    children: [{ path: '**', component: BlogPostComponent }],
+  },
+  { path: 'list', component: ListComponent },
+];
 
 @NgModule({
   declarations: [
@@ -49,6 +52,7 @@ const appRoutes: Routes =[
     TestComponent,
     CarouselComponent,
     GalleryComponent,
+    ListComponent,
   ],
   imports: [
     MDBBootstrapModule.forRoot(),
@@ -60,7 +64,7 @@ const appRoutes: Routes =[
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent],

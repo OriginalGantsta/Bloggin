@@ -1,11 +1,17 @@
-
-  <ng-template appPlaceholder></ng-template>
+<ng-template appPlaceholder></ng-template>
 <div #headerContainer [ngClass]="windowScrolled ? 'notAtTop' : '' "
- style="padding: 1em; position: sticky; display: flex; left: 5px; right: 5px; justify-content: space-between; align-items: center; top: 8px; z-index: 100;  height: 70px;">
-<div style="display: flex; gap: 1em;">
-  <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignUp()">Sign Up</a>
-<a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignIn()">Sign In</a>
-</div>
-<img (click)="test()" src="assets/img/Logo.png" alt="Bear Title Card" style="height: 60px;">
-<div>hello</div>
+  style="padding: 1em; position: sticky; display: flex; left: 5px; right: 5px; justify-content: center; align-items: center; top: 8px; z-index: 100;  height: 70px; ">
+  <div style="display: flex; justify-content: center; flex: 1">
+  <div *ngIf="!loggedIn" style="display: flex; gap: 1em; margin-right: auto;">
+    <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignUp()">Sign Up</a>
+    <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignIn()">Sign In</a>
+  </div>
+  <div *ngIf="loggedIn" style="display: flex; gap: 1em; margin-right: auto;">
+
+    <a style="color: #585858; font-weight: 600; cursor: pointer;" (click)="onSignOut()">Sign Out</a></div>
+  </div>
+  <img (click)="test()" src="assets/img/Logo.png" alt="Bear Title Card" style="height: 60px; justify-self: center;">
+  <div style="display: flex; justify-content: center; flex: 1">
+    <div *ngIf="loggedIn && user" style="color: #585858; font-weight: 600; margin-left: auto" (click)="goToUserBlogs()">Welcome, {{user.firstName}}</div>
+  </div>
 </div>

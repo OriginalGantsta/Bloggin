@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
 import { Blog } from '../models/blog.model';
 import { User } from '../models/user.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-blog-form',
@@ -32,7 +33,7 @@ export class BlogFormComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.editMode !== 'true') {
-      var blog: any = {
+      var blog: Blog = {
         title: form.value.title,
         author: this.user.firstName + ' ' + this.user.lastName,
         date: Date.now(),
@@ -44,7 +45,7 @@ export class BlogFormComponent implements OnInit {
       this.saveBlog(blog);
       console.log(this.editMode);
     } else if (this.editMode === 'true') {
-      var blog: any = {
+      var editedBlog: any = {
         title: form.value.title,
         author: this.user.firstName + ' ' + this.user.lastName,
         blurb: form.value.blurb,
@@ -53,26 +54,31 @@ export class BlogFormComponent implements OnInit {
         bodyText: form.value.bodyText,
       };
       console.log('submitting edit');
-      this.submitBlogEdit(blog);
+      this.submitBlogEdit(editedBlog);
     }
   }
 
-  saveBlog(blog: Blog) {
-    this.databaseService.saveBlogPost(blog);
+  async saveBlog(blog: Blog) {
+    this.bID = await this.databaseService.saveBlogPost(blog);
+    this.router.navigate(['blogs/' + this.bID])
   }
 
   submitBlogEdit(blog: Blog) {
     this.databaseService.submitBlogEdit(this.bID, blog);
+    this.router.navigate(['blogs/' + this.bID])
   }
 
   onCancel() {
-    console.log(this.authService.user.value);
+    console.log(this.route);
+    this.location.back()
   }
 
   constructor(
     private route: ActivatedRoute,
     private databaseService: DatabaseService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {

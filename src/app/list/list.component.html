@@ -1,0 +1,17 @@
+<app-header></app-header>
+<div style="display: flex; flex-direction: column; width: 100%; justify-content: center; padding-top: 5em;">
+<div *ngFor="let blog of userBlogs" style="align-content: center; max-width: 60em; display: flex; height: 10em; width: 100%; margin-left: auto; margin-right: auto; margin-bottom: 1.5em; gap: 1em;  overflow: hidden;" (click)="navigateToBlog(blog.bid)" >
+    <div style="width: 30%;">
+    <img [src]="blog.image" [alt]='blog.imageDescription' style="width: 100%; min-height: 100%;">
+    </div>
+    <div style="border-bottom: 1px solid lightgray; width: 100%; display: flex;">
+    <div style="display: flex; flex-direction: column; width: 100%; margin-top: auto; margin-bottom: auto;">
+      <div style="font-size: larger; font-weight: bold;">{{blog.title}}</div>
+      <div style="font-size: .75em;">{{getDate(blog.date)}}</div>
+      <div style="font-weight: 400; font-size: 1em;">{{blog.blurb}}</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+

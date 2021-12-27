@@ -2,12 +2,12 @@ export class User {
   firstName: string;
   lastName: string;
   email: string;
-  uid: string | Promise<string>;
+  uid: string;
   constructor(
   firstName: string,
   lastName: string,
   email: string,
-  uid: string | Promise<string>){
+  uid: string){
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
