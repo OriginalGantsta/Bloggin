@@ -14,21 +14,32 @@ import { Location } from '@angular/common';
   styleUrls: ['./blog-form.component.css'],
 })
 export class BlogFormComponent implements OnInit {
-  maxCharacterLength: number = 1000;
+  titleCharacterCount: number = 0;
   postCharacterCount: number = 0;
   blurbCharacterCount: number = 0;
+  imgDescCharacterCount: number= 0;
   user: User;
   userSubscription: Subscription;
   editMode: string = 'false';
   bID: string;
+  routeSubscription: Subscription;
+  fragmentSubscription: Subscription;
 
   @ViewChild('form') blogForm: NgForm;
 
-  updatePostCount(inputlength: number) {
-    this.postCharacterCount = inputlength;
+  updateTitleCount(inputLength: number){
+    this.titleCharacterCount = inputLength;
   }
-  updateBlurbCount(inputlength: number) {
-    this.blurbCharacterCount = inputlength;
+
+  updatePostCount(inputLength: number) {
+    this.postCharacterCount = inputLength;
+  }
+  updateBlurbCount(inputLength: number) {
+    this.blurbCharacterCount = inputLength;
+  }
+
+  updateImgDescCount(inputLength: number){
+    this.imgDescCharacterCount = inputLength;
   }
 
   onSubmit(form: NgForm) {
@@ -85,12 +96,12 @@ export class BlogFormComponent implements OnInit {
     this.userSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
     });
-    this.route.queryParams.subscribe((data) => {
+    this.routeSubscription =this.route.queryParams.subscribe((data) => {
       if (data['edit']) {
         this.editMode = data['edit'];
       }
     });
-    this.route.fragment.subscribe((data) => {
+   this.fragmentSubscription = this.route.fragment.subscribe((data) => {
       if (data) {
         this.bID = data;
         this.databaseService.getBlog(data).subscribe((data) => {
@@ -106,5 +117,11 @@ export class BlogFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.userSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
+    this.fragmentSubscription.unsubscribe();
   }
 }

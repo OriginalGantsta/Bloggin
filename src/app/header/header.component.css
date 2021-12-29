@@ -3,13 +3,32 @@ a {
   color: #9b9b9b;
 }
 
-img:hover{
-cursor: pointer;
+img:hover {
+  cursor: pointer;
 }
 
 .notAtTop {
   border: 1px solid #e0e0e0;
-  margin: .5em;
-  background-color: rgb(255, 255, 255, .9);
+  margin: 0.5em;
+  background-color: rgb(255, 255, 255, 0.9);
   transition: all 1s;
+}
+
+.welcome {
+  margin-left: auto;
+}
+
+.signIn, .signUp, .signOut, .welcome{
+  color: #585858;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.welcome:hover,
+img:hover,
+.signIn:hover,
+.signOut:hover,
+.signUp:hover {
+  text-decoration: underline;
+  color: #c46d45;
 }

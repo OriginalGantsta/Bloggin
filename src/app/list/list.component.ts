@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.route.queryParams.subscribe((params) => {
       if (params['user']){
+      this.userBlogs =[];
       this.databaseService.getUserBlogs(params['user']).subscribe(
         (data) =>
           this.userBlogs.push(

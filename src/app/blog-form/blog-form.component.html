@@ -1,11 +1,13 @@
+<app-header></app-header>
 <form (ngSubmit)="onSubmit(form)" #form="ngForm"
   class="signUpForm">
 
   <div class="inputContainer">
     <input type="text" name="title" #titleInput [ngClass]="titleInput.value != '' ? 'hasValue' : ''" ngModel required
-      class="inputText" autocomplete="off" />
+      class="inputText" autocomplete="off" maxlength="50" (input)="updateTitleCount(titleInput.value.length)"/>
     <div class="floating">
       <div>Title</div>
+      <div class="characterCounter">{{titleCharacterCount}}/50</div>
     </div>
   </div>
 
@@ -21,12 +23,12 @@
 
   <div class="inputContainer" id="mainText">
     <textarea type="text" id="bodyText" name="bodyText" #bodyText [ngClass]="bodyText.value != '' ? 'hasValue' : ''"
-      ngModel required class="inputText" autocomplete="off" maxlength="maxCharacterLength"
+      ngModel required class="inputText" autocomplete="off" maxlength="5000"
       (input)="updatePostCount(bodyText.value.length)"></textarea>
     <div class="floating">
       <div>Text</div>
       <div  class="characterCounter">
-        {{postCharacterCount}}/{{maxCharacterLength}}</div>
+        {{postCharacterCount}}/5000</div>
     </div>
   </div>
 
@@ -40,16 +42,17 @@
 
   <div class="inputContainer">
     <input type="text" name="imgDesc" #imgDesc [ngClass]="imgDesc.value != '' ? 'hasValue' : ''" ngModel
-      class="inputText" autocomplete="off" max-length="200" />
+      class="inputText" autocomplete="off" max-length="50" (input)="updateImgDescCount(imgDesc.value.length)"/>
     <div class="floating">
       <div>Description of image</div>
+      <div class="characterCounter">{{imgDescCharacterCount}}/50</div>
     </div>
   </div>
 
   <div style="display: flex; justify-content: space-between;">
- <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: red;">Cancel</button>
+ <button type="button" (click)="onCancel()" style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em; background-color: rgb(100, 100, 100);">Cancel</button>
 
-  <button type="submit" [ngStyle]="{'background-color': form.valid ? 'lime': 'rgb(170, 170, 170)'} "
+  <button type="submit" [ngStyle]="{'background-color': form.valid ? '#c46d45': 'rgb(170, 170, 170)'} "
     [disabled]="!form.valid"
     style=" height: 3em; border-radius: 1.5em; border: none; color: white; margin-top: 30.1755px; width:15em;"> Submit </button>
  </div>

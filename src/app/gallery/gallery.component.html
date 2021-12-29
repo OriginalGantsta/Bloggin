@@ -1,6 +1,4 @@
-<div style="width: 100%; display: flex; justify-content: center; margin-bottom: 5em; margin-top: 5em;">
-  <h5 (click)="onCreateBlog()" *ngIf="loggedIn"> Create New Blog </h5>
-</div>
+
 <div *ngFor="let blog of blogs, index as i">
   <div
     [ngStyle]="i%2>0?{'flex-direction': 'row', 'text-align': 'right'}:{'flex-direction': 'row-reverse', 'text-align': 'left'}"

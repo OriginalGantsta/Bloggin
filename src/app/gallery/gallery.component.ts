@@ -70,9 +70,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
     this.router.navigate(['/blogs/' + bID]);
   }
 
-  onCreateBlog(){
-    this.router.navigate(['submit']);
-  }
 
   async loadMoreBlogs() {
     this.blogs.push(...this.blogsPreload);

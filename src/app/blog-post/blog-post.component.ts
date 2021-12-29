@@ -57,11 +57,10 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             }
           }
           this.blog = blog;
-          if(blog.likes){
-          if (blog.likes.hasOwnProperty(this.user.uid)) {
+          if(blog.likes && blog.likes.hasOwnProperty(this.user.uid)) {
             this.blogLiked = true;
-          }}
-          else {this.blogLiked= false}
+          }
+          else {this.blogLiked= false;}
 
           if (!this.route.snapshot.params['title']) {
             this.location.replaceState(
@@ -81,7 +80,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   likeBlog() {
     if(this.blogLiked === false){
     this.databaseService.likeBlog(this.blog.bid)}
-    else {this.databaseService.unlikeBlog(this.blog.bid)}
+    else {this.databaseService.unlikeBlog(this.blog.bid);}
   }
 
   editBlog() {
