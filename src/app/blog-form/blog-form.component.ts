@@ -54,7 +54,6 @@ export class BlogFormComponent implements OnInit {
         bodyText: form.value.bodyText,
       };
       this.saveBlog(blog);
-      console.log(this.editMode);
     } else if (this.editMode === 'true') {
       var editedBlog: any = {
         title: form.value.title,
@@ -64,7 +63,6 @@ export class BlogFormComponent implements OnInit {
         imageDescription: form.value.imgDesc,
         bodyText: form.value.bodyText,
       };
-      console.log('submitting edit');
       this.submitBlogEdit(editedBlog);
     }
   }
@@ -80,7 +78,6 @@ export class BlogFormComponent implements OnInit {
   }
 
   onCancel() {
-    console.log(this.route);
     this.location.back()
   }
 
@@ -106,7 +103,6 @@ export class BlogFormComponent implements OnInit {
         this.bID = data;
         this.databaseService.getBlog(data).subscribe((data) => {
           this.bID = data['bid'];
-          console.log(data['bodyText']);
           this.blogForm.setValue({
             title: data['title'],
             blurb: data['blurb'],
@@ -117,6 +113,11 @@ export class BlogFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  onRemove(){
+    this.databaseService.removeBlog(this.bID);
+    this.router.navigate(['/'])
   }
 
   ngOnDestroy(){

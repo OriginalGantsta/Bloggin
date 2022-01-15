@@ -19,7 +19,7 @@ export class DatabaseService {
     private angularFireAuth: AngularFireAuth,
     private database: AngularFireDatabase,
     private authService: AuthService
-  ) {}
+  ) { }
 
   async writeUserData(userSignup: UserSignup) {
     var authUser;
@@ -51,6 +51,12 @@ export class DatabaseService {
     this.database.list('blogs').update(bID, blog);
   }
 
+  removeBlog(bID) {
+    this.database.object('blogs/' + bID).remove();
+    this.database
+      .list('users/' + this.authService.user.value.uid + '/userPosts/' + bID).remove()
+  }
+
   signUp(userSignup: UserSignup) {
     return this.authService.createUser(userSignup).then(() => {
       this.writeUserData(userSignup);
@@ -59,13 +65,11 @@ export class DatabaseService {
   }
 
   getMostPopularBlogs(x: number) {
-    console.log('getting');
     this.database
       .list('blogs', (ref) => ref.orderByChild('likes').limitToLast(x))
       .valueChanges()
       .subscribe({
         next: (response: Object) => {
-          console.log(response);
         },
       });
   }
@@ -85,32 +89,36 @@ export class DatabaseService {
       .valueChanges()
       .subscribe({
         next: (response: Object) => {
-          console.log(response);
         },
       });
   }
 
   getRecentBlogs(x, y?) {
-    if(!y){
-    return this.database
-      .list('blogs', (ref) => ref.orderByChild('date').limitToLast(x))
-      .valueChanges();}
-    else {
-      console.log('y exists')
+    if (!y) {
       return this.database
-        .list('blogs', (ref) => ref.orderByChild('date').endBefore(y) .limitToLast(x))
+        .list('blogs', (ref) => ref.orderByChild('date').limitToLast(x))
+        .valueChanges();
+    }
+    else {
+      return this.database
+        .list('blogs', (ref) => ref.orderByChild('date').endBefore(y).limitToLast(x))
         .valueChanges();
     }
   }
 
+  getUserInfo(userID) {
+    return this.database.object('users/' + userID + '/userInfo').valueChanges().pipe(take(1))
+  }
+
   getUserBlogs(userID) {
-    console.log('getting ' + userID + ' blogs');
     return this.database
       .object('users/' + userID + '/userPosts')
       .valueChanges()
       .pipe(take(1), mergeMap((async (data: any) => {
         var blogArray;
+        if (!data){return blogArray}
         await Promise.all(
+
           Object.keys(data).map(async (bID) => {
             return new Promise((resolve, reject) => {
               this.database
@@ -124,8 +132,9 @@ export class DatabaseService {
                 });
             });
           })
-        ).then((data) => {console.log(data); blogArray = data});
-        return blogArray})))
+        ).then((data) => { blogArray = data });
+        return blogArray
+      })))
   }
 
   getBlog(bID) {
@@ -146,15 +155,15 @@ export class DatabaseService {
       );
   }
 
-  likeBlog(bID){
+  likeBlog(bID) {
     this.database.object('blogs/' + bID + '/likes/' + this.authService.user.value.uid).set(true);
     this.database
       .object('users/' + this.authService.user.value.uid + '/likedBlogs/' + bID)
       .set(true);
   }
-  unlikeBlog(bID){
+  unlikeBlog(bID) {
     this.database.object('blogs/' + bID + '/likes/' + this.authService.user.value.uid).remove();
     this.database
-    .object('users/' + this.authService.user.value.uid + '/likedBlogs/' + bID).remove();
+      .object('users/' + this.authService.user.value.uid + '/likedBlogs/' + bID).remove();
   }
 }

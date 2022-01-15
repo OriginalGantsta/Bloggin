@@ -42,7 +42,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe({
         next: (data: any) => {
-          console.log(data);
           this.blogs.push(
             ...data.sort((a, b) =>
               Date.parse(a.date) < Date.parse(b.date) ? 1 : -1

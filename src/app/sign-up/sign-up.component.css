@@ -50,6 +50,7 @@ p {
   margin-bottom: 1.5em;
   display: grid;
   height: 3em;
+  position: relative;
 }
 
 input:focus ~ .floating {

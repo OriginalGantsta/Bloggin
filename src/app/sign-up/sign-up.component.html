@@ -37,6 +37,9 @@
       <div class="floating" id="emailLabel">
         <div>Email</div>
       </div>
+      <div *ngIf="emailInUse" style="position: absolute; top: 49.6px; padding-left: 10px;">
+        <div style="font-size: .8em; color: rgb(255, 51, 0);">Email already in use! <span style="cursor: pointer; text-decoration: underline;" (click)="onSignIn()" >Sign in?</span></div>
+      </div>
     </div>
 
     <div class="inputContainer">
@@ -45,7 +48,11 @@
       <div class="floating" id="emailLabel">
         <div>Password</div>
       </div>
+      <div *ngIf="invalidPassword" style="position: absolute; top: 49.6px; padding-left: 10px;">
+        <div style="font-size: .8em; color: rgb(255, 51, 0);">Password needs to be at least 6 characters!</div>
+      </div>
     </div>
+
 
     <div class="inputContainer">
       <input type="password" name="confirmPassword" #confirmPassword password

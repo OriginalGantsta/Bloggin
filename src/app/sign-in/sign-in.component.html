@@ -30,7 +30,11 @@
       <div class="floating" id="emailLabel">
         <div>Password</div>
       </div>
+      <div *ngIf="invalidSignIn" style="position: absolute; top: 49.6px; padding-left: 10px;">
+        <div style="font-size: .8em; color: rgb(255, 51, 0);">Email or password is invalid!</div>
+      </div>
     </div>
+
 
     <button type="submit" [ngStyle]="{'background-color': form.valid ? 'gray': 'rgb(170, 170, 170)'} "
       [disabled]="!form.valid"

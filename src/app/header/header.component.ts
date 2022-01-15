@@ -1,4 +1,4 @@
-import { Component, ComponentRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from '../database.service';
@@ -60,9 +60,7 @@ onSignOut(){
 }
 
 test(){
-  // console.log(this.loggedIn, this.user, this.authService.user)
   this.router.navigate(['/'],);
-  // console.log(this.route.toString())
 }
 
 ngOnDestroy(){
@@ -73,8 +71,6 @@ ngOnDestroy(){
 }
 
 @HostListener('window:scroll') onScroll(){
-  //  console.log(this.headerContainer.nativeElement.getBoundingClientRect().top);
-  //  console.log(window.scrollY);
   if (this.headerContainer.nativeElement.getBoundingClientRect().top === 8 && window.scrollY !=0){
   this.windowScrolled = true;}
   else {this.windowScrolled = false}

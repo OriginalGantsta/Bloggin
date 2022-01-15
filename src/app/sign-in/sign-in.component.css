@@ -48,8 +48,9 @@ p {
 
 .inputContainer{
   margin-bottom: 1.5em;
-  display: grid;
   height: 3em;
+  display: grid;
+  position: relative;
 }
 
 input:focus ~ .floating {

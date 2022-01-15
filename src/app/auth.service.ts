@@ -23,7 +23,6 @@ export class AuthService {
       if (authUser != null) {
         this.loggedIn.next(true);
         this.onLoggedIn(authUser);
-        // console.log(authUser)
       } else {
         this.loggedIn.next(false);
         this.onLoggedOut();
@@ -45,7 +44,6 @@ export class AuthService {
     //     },
     //     (error: any) => this.jokeSubscription.unsubscribe
     //   );
-    console.log('running logged in');
     this.userSubscription = this.database
       .object('users/' + authUser.uid + '/userInfo')
       .valueChanges()
@@ -55,7 +53,7 @@ export class AuthService {
             this.user.next(authUser);
           }
         },
-        error: (error: any) => {console.log(error) ;this.userSubscription.unsubscribe()},
+        error: (error: any) => {this.userSubscription.unsubscribe()},
       });
   }
 

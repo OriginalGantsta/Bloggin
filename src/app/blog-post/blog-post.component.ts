@@ -32,7 +32,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    console.log(Object.keys(this.test).length);
     await new Promise(
       (resolve) =>
         (this.loggedInSubscription = this.authService.loggedIn.subscribe(
