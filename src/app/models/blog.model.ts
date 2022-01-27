@@ -1,5 +1,3 @@
-import { Url } from "url";
-
 export class Blog {
   title: string;
   author: string;

@@ -18,7 +18,6 @@ import { BlogFormComponent } from './blog-form/blog-form.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { SweepComponent } from './sweep/sweep.component';
 import { HomeComponent } from './home/home.component';
-import { TestComponent } from './test/test.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -49,7 +48,6 @@ const appRoutes: Routes = [
     BlogPostComponent,
     SweepComponent,
     HomeComponent,
-    TestComponent,
     CarouselComponent,
     GalleryComponent,
     ListComponent,

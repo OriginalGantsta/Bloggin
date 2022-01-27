@@ -11,7 +11,7 @@
 
     <div (click)="onSignOut()">Sign Out</div></div>
   </div>
-  <img (click)="test()" src="assets/img/Logo.png" alt="Bear Title Card" style="height: 60px; justify-self: center;">
+  <img (click)="navigateHome()" src="assets/img/Logo.png" alt="Bear Title Card" style="height: 60px; justify-self: center;">
   <div style="display: flex; justify-content: center; flex: 1">
     <div class="welcome" *ngIf="loggedIn && user"  (click)="goToUserBlogs()">Welcome, {{user.firstName}}</div>
   </div>

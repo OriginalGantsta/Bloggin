@@ -59,8 +59,9 @@ onSignOut(){
   this.authService.logout()
 }
 
-test(){
+navigateHome(){
   this.router.navigate(['/'],);
+  window.scrollTo(0,0)
 }
 
 ngOnDestroy(){
